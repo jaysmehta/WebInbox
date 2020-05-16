@@ -76,6 +76,10 @@ function dismissPopup() {
 <style>
 body {
   font-family: "Lato", sans-serif;
+  background-image: url("coder.jpg");
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .sidenav {
@@ -206,6 +210,19 @@ a.float:hover + div.label-container{
   border: 1px solid #ccc;
   border-top: none;
 }
+#header
+{
+  height: 60px;
+  width: 30%;
+  background-color: #4F4947;
+}
+a
+{
+  color: #63D721;
+  text-decoration: none;
+  font-family: 'Courier New';
+  text-shadow: 2px 2px green;
+}
 </style>
   </head>
   <body>
@@ -213,35 +230,9 @@ a.float:hover + div.label-container{
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2PK5TM"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-    <h1>Hello, World!</h1>
-    <h4 id='date'></h4>
-
-    <div class="image-section">
-      <div class="section-style">
-        <img src="https://source.unsplash.com/random/400x200" alt="" />
-        <p>A random image courtesy of unsplash.com.</p>
-        <a href="page_2.html" target="_self">Visit 2 Page</a>
-        <button class="btn" onclick="dismissPopup()">DISMISS</button>
-      </div>
-
-      <div class="section-style">
-        <img src="https://source.unsplash.com/random/400x200" alt="" />
-        <p>A random image courtesy of unsplash.com.</p>
-      </div>
+    <div id="header">
+      <h1><a href="#">Web Inbox Website</a></h1>
     </div>
-
-    <div class="image-section">
-      <div class="section-style">
-        <img src="https://source.unsplash.com/random/400x200" alt="" />
-        <p>A random image courtesy of unsplash.com.</p>
-      </div>
-
-      <div class="section-style">
-        <img src="https://source.unsplash.com/random/400x200" alt="" />
-        <p>A random image courtesy of unsplash.com.</p>
-      </div>
-    </div>
-
 
   <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -372,6 +363,18 @@ function writeData(dataArray, tabName){
   }
 }
 </script>
+<marquee style="color: white; "><b>Hackathons bring people with technical backgrounds together to form teams to solve a problem or develop new ideas.
+
+Hackathons can help participants hone their IT skills, meet people and work with others in their field. Corporate hackathons encourage employees to innovate, foster team building and provide opportunities to cross-collaborate across departments.</b></marquee>
+<marquee>
+        <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
+       
+        <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
+
+        <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
+    
+        <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
+      </marquee>
    
   </body>
 </html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M2PK5TM');</script>
+<!-- End Google Tag Manager -->
+<link rel="manifest" href="/manifest.json">
+    <title>My webpage!</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+    <script async src="./javascript/index.js"></script>
+<script type="text/javascript">
+     var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
+ // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+clevertap.account.push({"id": "W6Z-6Z5-975Z"});
+clevertap.notifications.push({
+    "titleText":'Would you like to receive Push Notifications?',
+    "bodyText":'We promise to only send you relevant content and give you updates on your transactions',
+    "okButtonText":'Sign me up!',
+    "rejectButtonText":'No thanks',
+    "okButtonColor":'#f28046',
+"serviceWorkerPath": "/clevertap_sw.js"});
+
+clevertap.notificationCallback = function(msg){
+      //raise the notification viewed and clicked events in the callback
+      clevertap.raiseNotificationViewed();
+      console.log(JSON.stringify(msg));//your custom rendering implementation here
+      var strText = msg['kv']['img_url'];
+      console.log('STR '+strText);
+      var target = document.body;
+      var img = document.createElement('img');
+      var divTag = document.createElement('div');
+      divTag.id = 'myDiv';
+      var divTagSecond = document.createElement('div');
+      var displayText = document.createElement('p');
+      displayText.innerHTML = 'Added through Native Display';
+      divTagSecond.classList.add('section-style');
+      divTag.classList.add('image-section');
+      img.src = strText;
+      img.height = 200;
+      target.appendChild(divTag);
+      divTag.appendChild(divTagSecond);
+      divTagSecond.appendChild(img);
+      divTagSecond.appendChild(displayText);
+      document.getElementById('myDiv').scrollIntoView(false);
+      // target.insertAdjacentHTML("beforeend",
+      //  "<div class='image-section'><div class='section-style'>target.appendChild(img);<p>Added through Native Display</p></div></div>"
+      //  );
+      // var $button = jQuery("<button></button>");//element on whose click you want to raise the notification clicked event
+      // $button.click(function(){
+      //    clevertap.raiseNotificationClicked();
+      // });
+};// 
+     
+
+clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
+clevertap.onUserLogin.push({"Site":{"Name":"Web User","Email":"abc@example.com","Identity":"xyz123","Custom_Tag":"Champion"}});//9889
+timeFunction();
+
+clevertap.event.push("Web Push View",{"Product Name":"Product1","category":"cat1","date_time":new Date("March 03, 2020 11:30:00")});
+clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
+function timeFunction() {
+            setTimeout(function(){ clevertap.event.push("Web Event"); }, 5000);
+            clevertap.event.push("Web Event Test");
+            // clevertap.profile.push({"Site":{"Custom_Tag":"Champ"}});
+        }
+ (function () {
+		 var wzrk = document.createElement('script');
+		 wzrk.type = 'text/javascript';
+		 wzrk.async = true;
+		 wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/a.js';
+		 var s = document.getElementsByTagName('script')[0];
+		 s.parentNode.insertBefore(wzrk, s);
+  })();
+
+
+function dismissPopup() {
+	var wrapper = window.parent.document.getElementById('wizParDiv2');
+	wrapper.remove();
+}
+
+</script>
+  </head>
+  <body>
+  	<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2PK5TM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <h1>Hello, World!</h1>
+    <h4 id='date'></h4>
+
+    <div class="image-section">
+      <div class="section-style">
+        <img src="https://source.unsplash.com/random/400x200" alt="" />
+        <p>A random image courtesy of unsplash.com.</p>
+        <a href="page_2.html" target="_self">Visit 2 Page</a>
+        <button class="btn" onclick="dismissPopup()">DISMISS</button>
+      </div>
+
+      <div class="section-style">
+        <img src="https://source.unsplash.com/random/400x200" alt="" />
+        <p>A random image courtesy of unsplash.com.</p>
+      </div>
+    </div>
+
+    <div class="image-section">
+      <div class="section-style">
+        <img src="https://source.unsplash.com/random/400x200" alt="" />
+        <p>A random image courtesy of unsplash.com.</p>
+      </div>
+
+      <div class="section-style">
+        <img src="https://source.unsplash.com/random/400x200" alt="" />
+        <p>A random image courtesy of unsplash.com.</p>
+      </div>
+    </div>
+  </body>
+</html>

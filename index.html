@@ -12,6 +12,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>My webpage!</title>
     <link rel="stylesheet" href="styles/styles.css" />
     <script async src="./javascript/index.js"></script>
+    <script type="text/javascript" src="messages.json"></script>
 <script type="text/javascript">
      var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
  // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
@@ -26,34 +27,18 @@ clevertap.notifications.push({
 
 clevertap.notificationCallback = function(msg){
       //raise the notification viewed and clicked events in the callback
-      clevertap.raiseNotificationViewed();
-      console.log(JSON.stringify(msg));//your custom rendering implementation here
-      var strText = msg['kv']['img_url'];
-      console.log('STR '+strText);
-      var target = document.body;
-      var img = document.createElement('img');
-      var divTag = document.createElement('div');
-      divTag.id = 'myDiv';
-      var divTagSecond = document.createElement('div');
-      var displayText = document.createElement('p');
-      displayText.innerHTML = 'Added through Native Display';
-      divTagSecond.classList.add('section-style');
-      divTag.classList.add('image-section');
-      img.src = strText;
-      img.height = 200;
-      target.appendChild(divTag);
-      divTag.appendChild(divTagSecond);
-      divTagSecond.appendChild(img);
-      divTagSecond.appendChild(displayText);
-      document.getElementById('myDiv').scrollIntoView(false);
-      // target.insertAdjacentHTML("beforeend",
-      //  "<div class='image-section'><div class='section-style'>target.appendChild(img);<p>Added through Native Display</p></div></div>"
-      //  );
-      // var $button = jQuery("<button></button>");//element on whose click you want to raise the notification clicked event
-      // $button.click(function(){
-      //    clevertap.raiseNotificationClicked();
-      // });
-};// 
+      //clevertap.raiseNotificationViewed();
+      //console.log(JSON.stringify(msg));//your custom rendering implementation here
+    var messages = JSON.parse(localStorage.getItem("message"));
+    messages.push({
+    tab : msg['kv']['tab'],
+    title : msg['kv']['title'],
+    body : msg['kv']['body'],
+    imageurl : msg['kv']['imgurl']
+  });
+  localStorage.setItem("message", JSON.stringify(messages));
+  console.log("Displaying Messages ",localStorage.getItem("message"));
+};
      
 
 clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
@@ -265,9 +250,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<div id="All" class="tabcontent">
+<div id="All" class="tabcontent active" style="display:block">
   <h3>All</h3>
   <p>London is the capital city of England.</p>
+  <ul id="allData">
+
+  </ul>
 </div>
 
 <div id="Promotions" class="tabcontent">
@@ -287,9 +275,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <i class="fa fa-play label-arrow"></i>
 </div>
 
+
+
+
 <script>
+
+
 function openNav() {
   document.getElementById("mySidenav").style.width = "400px";
+  readMessages();
 }
 
 function closeNav() {
@@ -308,6 +302,70 @@ function openEvent(evt, cityName) {
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
+}
+
+function readMessages(){
+  // Check browser support
+  if (typeof(Storage) !== "undefined") {
+    // Store
+    var messages = [{
+      tab : "all",
+      title : "Welcome To hackathon",
+      body : "This is an intiative by DK",
+      imageurl : "https://s3.envato.com/files/216024394/01_Preview%203.jpg"
+    },
+    {tab : "all",
+      title : "Welcome To hackathon 2",
+      body : "This is an intiative by DK",
+      imageurl : "https://s3.envato.com/files/216024394/01_Preview%203.jpg"
+    },
+    {tab : "promotions",
+      title : "Welcome To hackathon 3",
+      body : "This is an intiative by DK",
+      imageurl : "https://s3.envato.com/files/216024394/01_Preview%203.jpg"
+    }];
+  }
+
+    /*localStorage.setItem("message", JSON.stringify(message));*/
+
+    //var messages =  JSON.parse(localStorage.getItem("message"));
+
+    console.log("messages are",messages);
+
+    var allArray = [];
+    var restArray= [];
+
+    for(var i = 0 ; i< messages.length; i++ ){
+
+      if(messages[i].tab == 'all'){
+           allArray.push(messages[i]);
+      }
+      else{
+          restArray.push(messages[i]);
+      }
+    }
+    writeData(allArray);   
+    
+}
+
+
+function writeData(dataArray){
+
+   
+   for(var i = 0 ; i< dataArray.length; i++ ){
+
+     var listItem;
+     let output = `<div class="image-section">
+      <div class="section-style">
+        <img src="${ dataArray[i].imageurl }" style="height:100px"/>
+        <h4>${ dataArray[i].title }</h4>
+        <p>${ dataArray[i].body }</p>
+      </div>
+    </div>`;
+    listItem = document.createElement('li');
+     listItem.innerHTML = output;
+     document.getElementById("allData").appendChild(listItem);
+  }
 }
 </script>
    

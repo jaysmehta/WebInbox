@@ -184,7 +184,7 @@ a.float:hover + div.label-container{
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
-  float: left;
+  float: center;
   border: none;
   outline: none;
   cursor: pointer;
@@ -223,6 +223,25 @@ a
   font-family: 'Courier New';
   text-shadow: 2px 2px green;
 }
+
+.image-section {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.section-style {
+  margin-right: 25px;
+  margin-left: 25px;
+  background-color: white;
+}
+
+ul{
+list-style: none;
+}
+
 </style>
   </head>
   <body>
@@ -265,7 +284,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <a href="#" class="float" onclick="openNav()">
-<i class="fa fa-envelope my-float"></i>
+<!-- <i class="fa fa-envelope my-float"></i> -->
+<img src="bell.png" style="height: 50px;">
 </a>
 <div class="label-container">
 <div class="label-text">Feedback</div>
@@ -280,7 +300,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "400px";
+  var myList = document.getElementById('allData');
+  myList.innerHTML = '';
+  var myListRest = document.getElementById('restData');
+  myListRest.innerHTML = '';
   readMessages('All');
+
+
 }
 
 function closeNav() {
@@ -339,10 +365,13 @@ function readMessages(tabName){
 
 function writeData(dataArray, tabName){
 
-   
+
+   document.getElementById("allData").innerHTML = '';
+   document.getElementById("restData").innerHTML = '';
+
    for(var i = 0 ; i< dataArray.length; i++ ){
 
-     var listItem;
+     var listItem, listParent;
      let output = `<div class="image-section">
       <div class="section-style">
         <img src="${ dataArray[i].imageurl }" style="height:100px"/>
@@ -350,8 +379,10 @@ function writeData(dataArray, tabName){
         <p>${ dataArray[i].body }</p>
       </div>
     </div>`;
+
+    
     listItem = document.createElement('li');
-     listItem.innerHTML = output;
+    listItem.innerHTML = output;
 
      if(tabName == 'All'){
       document.getElementById("allData").appendChild(listItem);
@@ -363,10 +394,10 @@ function writeData(dataArray, tabName){
   }
 }
 </script>
-<marquee style="color: white; "><b>Hackathons bring people with technical backgrounds together to form teams to solve a problem or develop new ideas.
+<!-- <marquee style="color: white; "><b>Hackathons bring people with technical backgrounds together to form teams to solve a problem or develop new ideas.
 
-Hackathons can help participants hone their IT skills, meet people and work with others in their field. Corporate hackathons encourage employees to innovate, foster team building and provide opportunities to cross-collaborate across departments.</b></marquee>
-<marquee>
+Hackathons can help participants hone their IT skills, meet people and work with others in their field. Corporate hackathons encourage employees to innovate, foster team building and provide opportunities to cross-collaborate across departments.</b></marquee> -->
+<!-- <marquee>
         <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
        
         <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
@@ -374,7 +405,7 @@ Hackathons can help participants hone their IT skills, meet people and work with
         <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
     
         <img src="https://source.unsplash.com/random/400x200" alt="" height=250 width=350/>
-      </marquee>
+      </marquee> -->
    
   </body>
 </html>

@@ -27,7 +27,7 @@ clevertap.notificationCallback = function(msg){
 
 - Sample response payload :
 
-{    
+- {    
   "msgContent": {        
       "title": "hello title!",        
       "description": “hello message!"    

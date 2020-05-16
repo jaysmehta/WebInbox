@@ -29,7 +29,11 @@ clevertap.notificationCallback = function(msg){
       //raise the notification viewed and clicked events in the callback
       //clevertap.raiseNotificationViewed();
       //console.log(JSON.stringify(msg));//your custom rendering implementation here
+
     var messages = JSON.parse(localStorage.getItem("message"));
+    if(!messages){
+      messages =[];
+    }
     messages.push({
     tab : msg['kv']['tab'],
     title : msg['kv']['title'],
@@ -37,7 +41,7 @@ clevertap.notificationCallback = function(msg){
     imageurl : msg['kv']['imgurl']
   });
   localStorage.setItem("message", JSON.stringify(messages));
-  console.log("Displaying Messages ",localStorage.getItem("message"));
+  console.log("Displaying Messages ----> ",localStorage.getItem("message"));
 };
      
 
@@ -48,7 +52,7 @@ timeFunction();
 clevertap.event.push("Web Push View",{"Product Name":"Product1","category":"cat1","date_time":new Date("March 03, 2020 11:30:00")});
 clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
 function timeFunction() {
-            setTimeout(function(){ clevertap.event.push("Web Event"); }, 5000);
+            setTimeout(function(){ clevertap.event.push("Web Event"); }, 1000);
             clevertap.event.push("Web Event Test");
             // clevertap.profile.push({"Site":{"Custom_Tag":"Champ"}});
         }
@@ -252,7 +256,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="All" class="tabcontent active" style="display:block">
   <h3>All</h3>
-  <p>London is the capital city of England.</p>
+  
   <ul id="allData">
 
   </ul>
@@ -260,7 +264,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="Promotions" class="tabcontent">
   <h3>Promotions</h3>
-  <p>Paris is the capital of France.</p> 
+   <ul id="restData">
+
+  </ul>
 </div>
   </p>
 </div>
@@ -283,14 +289,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "400px";
-  readMessages();
+  readMessages('All');
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
 
-function openEvent(evt, cityName) {
+function openEvent(evt, tabName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -300,56 +306,47 @@ function openEvent(evt, cityName) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  document.getElementById(cityName).style.display = "block";
+  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
+
+  readMessages(tabName);
 }
 
-function readMessages(){
+function readMessages(tabName){
   // Check browser support
   if (typeof(Storage) !== "undefined") {
-    // Store
-    var messages = [{
-      tab : "all",
-      title : "Welcome To hackathon",
-      body : "This is an intiative by DK",
-      imageurl : "https://s3.envato.com/files/216024394/01_Preview%203.jpg"
-    },
-    {tab : "all",
-      title : "Welcome To hackathon 2",
-      body : "This is an intiative by DK",
-      imageurl : "https://s3.envato.com/files/216024394/01_Preview%203.jpg"
-    },
-    {tab : "promotions",
-      title : "Welcome To hackathon 3",
-      body : "This is an intiative by DK",
-      imageurl : "https://s3.envato.com/files/216024394/01_Preview%203.jpg"
-    }];
-  }
+  
 
-    /*localStorage.setItem("message", JSON.stringify(message));*/
+    var messagesData =  JSON.parse(localStorage.getItem("message"));
 
-    //var messages =  JSON.parse(localStorage.getItem("message"));
-
-    console.log("messages are",messages);
+    console.log("messages are",messagesData);
 
     var allArray = [];
     var restArray= [];
 
-    for(var i = 0 ; i< messages.length; i++ ){
+    for(var i = 0 ; i< messagesData.length; i++ ){
 
-      if(messages[i].tab == 'all'){
-           allArray.push(messages[i]);
+      if(messagesData[i].tab == 'all'){
+           allArray.push(messagesData[i]);
       }
       else{
-          restArray.push(messages[i]);
+          restArray.push(messagesData[i]);
       }
     }
-    writeData(allArray);   
-    
+
+    if(tabName == 'All'){
+       writeData(allArray,tabName);   
+     }
+
+     else{
+        writeData(restArray,tabName);   
+     }
+
+    }
 }
 
 
-function writeData(dataArray){
+function writeData(dataArray, tabName){
 
    
    for(var i = 0 ; i< dataArray.length; i++ ){
@@ -364,7 +361,14 @@ function writeData(dataArray){
     </div>`;
     listItem = document.createElement('li');
      listItem.innerHTML = output;
-     document.getElementById("allData").appendChild(listItem);
+
+     if(tabName == 'All'){
+      document.getElementById("allData").appendChild(listItem);
+     }
+     else{
+      document.getElementById("restData").appendChild(listItem);
+     }
+     
   }
 }
 </script>
